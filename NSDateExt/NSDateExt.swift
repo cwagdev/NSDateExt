@@ -74,6 +74,48 @@ public extension NSDate {
         return NSCalendar.currentCalendar().dateFromComponents(components)!
     }
     
+    // MARK: Components
+    public var year: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.year
+    }
+    
+    public var month: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.month
+    }
+    
+    public var weekday: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.weekday
+    }
+    
+    public var nthWeekday: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.weekdayOrdinal
+    }
+    
+    public var day: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.day
+    }
+    
+    public var hour: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.hour
+    }
+    
+    public var minute: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.minute
+    }
+    
+    public var seconds: Int {
+        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+        return components.second
+    }
+    
+    // MARK: Comparisons
     public var isToday: Bool {
         return equalToDateIngoringTime(NSDate.today())
     }
