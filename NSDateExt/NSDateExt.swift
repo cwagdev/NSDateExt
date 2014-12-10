@@ -9,6 +9,7 @@
 import Foundation
 
 public enum TimeUnit {
+    case Seconds(Int)
     case Minutes(Int)
     case Hours(Int)
     case Days(Int)
@@ -17,6 +18,8 @@ public enum TimeUnit {
     
     public var timeInterval: NSTimeInterval {
         switch self {
+        case .Seconds(let seconds):
+            return NSTimeInterval(seconds)
         case .Minutes(let minutes):
             return NSTimeInterval(minutes) * 60
         case .Hours(let hours):
@@ -175,6 +178,8 @@ public extension NSDate {
         let components = NSDateComponents()
         for timeUnit in units {
             switch timeUnit {
+            case .Seconds(let seconds):
+                components.second = seconds
             case .Minutes(let minutes):
                 components.minute = minutes
             case .Hours(let hours):
@@ -196,6 +201,8 @@ public extension NSDate {
         let components = NSDateComponents()
         for timeUnit in units {
             switch timeUnit {
+            case .Seconds(let seconds):
+                components.second = seconds
             case .Minutes(let minutes):
                 components.minute = -minutes
             case .Hours(let hours):
