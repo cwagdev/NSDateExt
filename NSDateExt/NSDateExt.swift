@@ -225,6 +225,33 @@ public extension NSDate {
     }
 }
 
+public extension Int {
+    
+    public var years: TimeUnit {
+        return .Years(self)
+    }
+    
+    public var weeks: TimeUnit {
+        return .Weeks(self)
+    }
+    
+    public var days: TimeUnit {
+        return .Days(self)
+    }
+    
+    public var hours: TimeUnit {
+        return .Hours(self)
+    }
+    
+    public var minutes: TimeUnit {
+        return .Minutes(self)
+    }
+    
+    public var seconds: TimeUnit {
+        return .Seconds(self)
+    }
+}
+
 public func + (left: NSDate, right: TimeUnit) -> NSDate {
     return left.dateByAdding(right)
 }
