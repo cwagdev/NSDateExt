@@ -81,6 +81,10 @@ public extension NSDate {
         return NSCalendar.currentCalendar().dateFromComponents(components)!
     }
     
+    public var startOfDay: NSDate {
+        return midnight
+    }
+    
     public var endOfDay: NSDate {
         let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
         components.second = 59
