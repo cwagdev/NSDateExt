@@ -1,5 +1,5 @@
 # Installation
-1. Drag `NSDateExt.swift` to your project
+1. Drag [`NSDateExt.swift`](https://github.com/cwagdev/NSDateExt/blob/master/NSDateExt/NSDateExt.swift) to your project
 
 # Usage
 
