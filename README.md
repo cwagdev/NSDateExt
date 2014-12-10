@@ -5,17 +5,19 @@
 
 ## Creating and manipulating dates
 
-```
+```swift
 let yesterday = NSDate.yesterday()
 let twoWeeksFromYesterday = yesterday + 2.weeks
 ```
 
 ## Comparing dates
 
-```
+```swift
 yesterday.isToday // false
 yesterday.isYesterday // true
 ```
 
 ## Displaying dates
-`yesterday.mediumDateString // "Dec 9, 2014"`
+```swift
+yesterday.mediumDateString // "Dec 9, 2014"
+```
