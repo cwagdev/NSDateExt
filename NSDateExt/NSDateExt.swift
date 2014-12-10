@@ -62,11 +62,11 @@ public extension NSDate {
     }
     
     public class func tomorrow() -> NSDate {
-        return NSDate().dateByAdding(.Days(1))
+        return NSDate().dateByAdding(TimeUnit.Days(1))
     }
     
     public class func yesterday() -> NSDate {
-        return NSDate().dateByAdding(.Days(-1))
+        return NSDate().dateByAdding(TimeUnit.Days(-1))
     }
     
     public var midnight: NSDate {
@@ -167,23 +167,61 @@ public extension NSDate {
     
     // MARK: Manipulations
     
-    public func dateByAdding(timeUnit: TimeUnit) -> NSDate {
+    public func dateByAdding(unit: TimeUnit) -> NSDate {
+        return dateByAdding(units: unit)
+    }
+    
+    public func dateByAdding(#units: TimeUnit...) -> NSDate {
         let components = NSDateComponents()
-        switch timeUnit {
-        case .Minutes(let minutes):
-            components.minute = minutes
-        case .Hours(let hours):
-            components.hour = hours
-        case .Days(let days):
-            components.day = days
-        case .Weeks(let weeks):
-            components.day = weeks * 7
-        case .Years(let years):
-            components.year = years
+        for timeUnit in units {
+            switch timeUnit {
+            case .Minutes(let minutes):
+                components.minute = minutes
+            case .Hours(let hours):
+                components.hour = hours
+            case .Days(let days):
+                components.day = days
+            case .Weeks(let weeks):
+                components.day = weeks * 7
+            case .Years(let years):
+                components.year = years
+            }
         }
         
         let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: nil)
         return newDate!
     }
     
+    public func dateBySubtracting(#units: TimeUnit...) -> NSDate {
+        let components = NSDateComponents()
+        for timeUnit in units {
+            switch timeUnit {
+            case .Minutes(let minutes):
+                components.minute = -minutes
+            case .Hours(let hours):
+                components.hour = -hours
+            case .Days(let days):
+                components.day = -days
+            case .Weeks(let weeks):
+                components.day = -weeks * 7
+            case .Years(let years):
+                components.year = -years
+            }
+        }
+        
+        let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: nil)
+        return newDate!
+    }
+    
+    public func dateBySubtracting(unit: TimeUnit) -> NSDate {
+        return dateBySubtracting(units: unit)
+    }
+}
+
+public func + (left: NSDate, right: TimeUnit) -> NSDate {
+    return left.dateByAdding(right)
+}
+
+public func - (left: NSDate, right: TimeUnit) -> NSDate {
+    return left.dateBySubtracting(right)
 }
