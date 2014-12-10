@@ -31,29 +31,42 @@ public enum TimeUnit {
     }
 }
 
-
-
 private let componentFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.WeekCalendarUnit | NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.HourCalendarUnit | NSCalendarUnit.MinuteCalendarUnit | NSCalendarUnit.SecondCalendarUnit | NSCalendarUnit.WeekdayCalendarUnit | NSCalendarUnit.WeekdayOrdinalCalendarUnit
+
+// MARK: Date Formatters
+
+private let _shortDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .ShortStyle
+    return formatter
+}()
+
+private let _mediumDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .MediumStyle
+    return formatter
+}()
+
+private let _fullDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .FullStyle
+    return formatter
+}()
 
 public extension NSDate {
     
-    public func dateByAdding(timeUnit: TimeUnit) -> NSDate {
-        let components = NSDateComponents()
-        switch timeUnit {
-        case .Minutes(let minutes):
-            components.minute = minutes
-        case .Hours(let hours):
-            components.hour = hours
-        case .Days(let days):
-            components.day = days
-        case .Weeks(let weeks):
-            components.day = weeks * 7
-        case .Years(let years):
-            components.year = years
-        }
-        
-        let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: nil)
-        return newDate!
+    // MARK: Convenience Initializers
+    
+    public class func today() -> NSDate {
+        return NSDate()
+    }
+    
+    public class func tomorrow() -> NSDate {
+        return NSDate().dateByAdding(.Days(1))
+    }
+    
+    public class func yesterday() -> NSDate {
+        return NSDate().dateByAdding(.Days(-1))
     }
     
     public var midnight: NSDate {
@@ -75,6 +88,7 @@ public extension NSDate {
     }
     
     // MARK: Components
+    
     public var year: Int {
         let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
         return components.year
@@ -116,6 +130,7 @@ public extension NSDate {
     }
     
     // MARK: Comparisons
+    
     public var isToday: Bool {
         return equalToDateIngoringTime(NSDate.today())
     }
@@ -136,15 +151,39 @@ public extension NSDate {
             components1.day == components2.day
     }
     
-    public class func today() -> NSDate {
-        return NSDate()
+    // MARK: Display Strings
+    
+    public var shortDateString: String {
+        return _shortDateFormatter.stringFromDate(self)
     }
     
-    public class func tomorrow() -> NSDate {
-        return NSDate().dateByAdding(.Days(1))
+    public var mediumDateString: String {
+        return _mediumDateFormatter.stringFromDate(self)
     }
     
-    public class func yesterday() -> NSDate {
-        return NSDate().dateByAdding(.Days(-1))
+    public var fullDateString: String {
+        return _fullDateFormatter.stringFromDate(self)
     }
+    
+    // MARK: Manipulations
+    
+    public func dateByAdding(timeUnit: TimeUnit) -> NSDate {
+        let components = NSDateComponents()
+        switch timeUnit {
+        case .Minutes(let minutes):
+            components.minute = minutes
+        case .Hours(let hours):
+            components.hour = hours
+        case .Days(let days):
+            components.day = days
+        case .Weeks(let weeks):
+            components.day = weeks * 7
+        case .Years(let years):
+            components.year = years
+        }
+        
+        let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: nil)
+        return newDate!
+    }
+    
 }
