@@ -95,45 +95,41 @@ public extension NSDate {
     }
     
     // MARK: Components
-    
+
+    private var commonComponents: NSDateComponents {
+        return NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
+    }
+
     public var year: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.year
+        return commonComponents.year
     }
     
     public var month: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.month
+        return commonComponents.month
     }
     
     public var weekday: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.weekday
+        return commonComponents.weekday
     }
     
     public var nthWeekday: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.weekdayOrdinal
+        return commonComponents.weekdayOrdinal
     }
     
     public var day: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.day
+        return commonComponents.day
     }
     
     public var hour: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.hour
+        return commonComponents.hour
     }
     
     public var minute: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.minute
+        return commonComponents.minute
     }
     
     public var seconds: Int {
-        let components = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
-        return components.second
+        return commonComponents.second
     }
     
     // MARK: Comparisons
