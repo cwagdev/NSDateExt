@@ -139,18 +139,18 @@ public extension NSDate {
     // MARK: Comparisons
     
     public var isToday: Bool {
-        return equalToDateIngoringTime(NSDate.today())
+        return equalToDateIgnoringTime(NSDate.today())
     }
     
     public var isTomorrow: Bool {
-        return equalToDateIngoringTime(NSDate.tomorrow())
+        return equalToDateIgnoringTime(NSDate.tomorrow())
     }
     
     public var isYesterday: Bool {
-        return equalToDateIngoringTime(NSDate.yesterday())
+        return equalToDateIgnoringTime(NSDate.yesterday())
     }
     
-    public func equalToDateIngoringTime(date: NSDate) -> Bool {
+    public func equalToDateIgnoringTime(date: NSDate) -> Bool {
         let components1 = NSCalendar.currentCalendar().components(componentFlags, fromDate: self)
         let components2 = NSCalendar.currentCalendar().components(componentFlags, fromDate: date)
         return components1.year == components2.year &&
